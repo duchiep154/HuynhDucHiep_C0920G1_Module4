@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <th:block th:include="fragments/sidebar"></th:block>
+    <!-- Main Panel -->
+    <div class="main-panel">
+<!--        <th:block th:include="fragments/navbar"></th:block>-->
+
+        <!-- Begin Page Content -->
+        <div style="color:rgb(154,135,135);" class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Add new Book</h4>
+                                <p class="category">fill out & click save</p>
+                            </div>
+
+                            <div class="content" >
+                                <form th:object="${booksNew}" th:action="@{/savecreate}" th:method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" th:field="*{id}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title" style="color:#000;">Title</label>
+                                        <input style="color:#a38b8b;" type="text" class="form-control" id="title" aria-describedby="title" th:field="*{title}" playeholder="Harry Potter and the Deathly Hollows">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="author">Author</label>
+                                        <input type="text" class="form-control" id="author" aria-describedby="author" th:field="*{author}" playeholder="Joanne K. Rowling"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                        <select id="category" class="form-control" th:field="*{categories}" multiple="multiple">
+                                            <option th:each="category : ${categoryList}" th:text="${category.name}" th:value="${category.id}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date">Year</label>
+                                        <input type="date" class="form-control" id="date" th:field="*{dateField}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea rows="5" type="textarea" class="form-control" id="description" th:field="*{description}" playeholder="type here ..."/></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- End of Main Panel -->
+    <th:block th:include="fragments/footer"></th:block>
+</div>
+<!--   Core JS Files   -->
+<script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script th:src="@{/js/bootstrap-checkbox-radio.js}"></script>
+
+<!--  Charts Plugin -->
+<script th:src="@{/js/chartist.min.js}"></script>
+
+<!--  Notifications Plugin    -->
+<script th:src="@{/js/bootstrap-notify.js}"></script>
+
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+<!-- Paper Dashboard Core javascript and methods for Demo purpose -->
+<script th:src="@{/js/paper-dashboard.js}"></script>
+
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script th:src="@{/js/demo.js}"></script>
+
+</body>
+</html>

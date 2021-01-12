@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="609c926a-db9a-4e1f-a128-6fa4503735e9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../src/com/codegym/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/com/codegym/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/com/codegym/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/com/codegym/service/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ung_dung_quan_ly_san_pham.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/../ung_dung_quan_ly_san_pham.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ung_dung_quan_ly_san_pham.iws" beforeDir="false" afterPath="$PROJECT_DIR$/../ung_dung_quan_ly_san_pham.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/dispatcher-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-grid.css" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-grid.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-grid.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-grid.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-grid.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-grid.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-grid.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-reboot.css" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-reboot.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-reboot.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-reboot.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap-reboot.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/css/bootstrap.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.bundle.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/bootstrap413/js/bootstrap.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/js/bootstrap.min.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/views/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/views/delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/detail_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/views/detail_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/views/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WEB-INF/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/WEB-INF/views/home.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="1mgv0u1964QqDAgBKEWt8YQGYwk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="609c926a-db9a-4e1f-a128-6fa4503735e9" name="Default Changelist" comment="" />
+      <created>1609927828471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1609927828471</updated>
+      <workItem from="1609927829811" duration="4000" />
+    </task>
+    <servers />
+  </component>
+</project>

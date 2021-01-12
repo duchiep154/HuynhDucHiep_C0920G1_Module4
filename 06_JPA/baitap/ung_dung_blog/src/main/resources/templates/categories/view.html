@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <th:block th:include="fragments/sidebar"></th:block>
+    <!-- Main Panel -->
+    <div class="main-panel">
+<!--        <th:block th:include="fragments/navbar"></th:block>-->
+        <!-- Begin Page Content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Books for <span th:text="${category.name}"></span></h4>
+                                <p class="category">shows all available books</p>
+                            </div>
+
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="book : ${books}">
+                                        <td th:text="${book.id}"></td>
+                                        <td th:text="${book.title}"></td>
+                                        <td th:text="${book.author}"></td>
+                                        <td><a th:href="@{/books/{id}/view(id=${book.getId()})}" class="btn btn-primary">View</a></td>
+                                        <td><a th:href="@{/books/{id}/edit(id=${book.getId()})}" class="btn btn-default">Edit</a></td>
+                                        <td><a data-toggle="modal" data-target="#deleteModal" href="#"
+                                               th:data-id="${book.id}"  class="btn btn-danger">Delete</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- End of Main Panel -->
+    <th:block th:include="fragments/footer"></th:block>
+</div>
+<div id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/delete}" method="post">
+                <input type="hidden" name="deleteId" id="deleteId"/>
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Books</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="warning" style="color: red; width: 100%"/>
+                    <p class="text-warning"><small style="color: blue">This action cannot be
+                        undone.</small>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="fragments/scripts"></th:block>
+</body>
+<script>
+    $(".delete").click(function () {
+        $("#deleteModal input[id='deleteId']").val($(this).data("id"));
+        $("#deleteModal input[id='warning']").val("Are you sure you want to delete Book have ID is "
+            + $(this).data("id") + $(this).data("category") +" ?");
+    });
+</script>
+</html>
