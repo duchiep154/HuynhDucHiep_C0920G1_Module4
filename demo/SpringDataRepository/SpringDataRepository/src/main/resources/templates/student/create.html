@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/student/layout::head}">
+
+</head>
+<body>
+<form action="/student/create" method="post" th:object="${student}">
+    <div>
+        <label>Name:</label>
+        <input type="text"  th:field="*{name}"/>
+    </div>
+    <div>
+        <label>Gender:</label>
+        <input type="radio" th:field="*{gender}" value="0" />Female
+        <input type="radio" th:field="*{gender}" value="1" />Male
+        <input type="radio" th:field="*{gender}" value="2" />LGBT
+    </div>
+    <div>
+        <label>Laptop:</label>
+        <input type="text"  th:field="*{laptop.name}"/>
+    </div>
+
+    <div>
+        <label>Class:</label>
+        <select th:field="*{classRoom.id}">
+            <option th:each="item:${classRooms}" th:text="${item.name}" th:value="${item.id}"></option>
+        </select>
+    </div>
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>

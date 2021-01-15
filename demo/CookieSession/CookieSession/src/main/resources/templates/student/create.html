@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/student/layout::head}">
+
+</head>
+<body>
+<form action="/student/create" method="post" th:object="${student}">
+    <div>
+        <label>Name:</label>
+        <input type="text"  th:field="*{name}"/>
+        <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+    <div>
+        <label>Gender:</label>
+        <input type="radio" th:field="*{gender}" value="0" />Female
+        <input type="radio" th:field="*{gender}" value="1" />Male
+        <input type="radio" th:field="*{gender}" value="2" />LGBT
+    </div>
+    <div>
+        <label>Laptop:</label>
+        <input type="text"  th:field="*{laptop.name}"/>
+        <div>
+            <div style="color: red" th:if="${#fields.hasErrors('laptop')}" th:errors="*{laptop}"></div>
+        </div>
+    </div>
+
+    <div>
+        <label>Class:</label>
+        <select th:field="*{classRoom.id}">
+            <option th:each="item:${classRooms}" th:text="${item.name}" th:value="${item.id}"></option>
+        </select>
+    </div>
+
+    <div>
+        <label>Date Of Birth:</label>
+        <input type="date"  th:field="*{dateOfBirth}"/>
+        <div>
+            <div style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></div>
+        </div>
+    </div>
+    <input type="submit" value="Create">
+</form>
+
+<h1 th:each="cookie: ${cookieValue}" th:text="${cookie.value}"></h1>
+
+</body>
+</html>
