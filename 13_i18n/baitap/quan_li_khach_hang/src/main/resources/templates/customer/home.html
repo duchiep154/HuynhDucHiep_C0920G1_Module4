@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+
+<body>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <th:block th:include="fragments/sidebar"></th:block>
+    <!-- Main Panel -->
+    <div class="main-panel">
+        <th:block th:include="fragments/navbar"></th:block>
+        <!-- Begin Page Content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 " >
+                        <div class="notify" style="color: red">
+                            <div th:if="${message}"><span th:text="${message}"></span></div>
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-striped">
+                                <thead>
+                                <th th:text="#{list.id}">ID</th>
+                                <th th:text="#{list.name}">Name</th>
+                                <th th:text="#{list.email}">Email</th>
+                                <th th:text="#{list.birthday}">Birthday</th>
+                                <th th:text="#{list.phone}">Phone</th>
+                                <th th:text="#{list.typeCustomer}">Type Customer</th>
+                                <th th:text="#{list.address}">Province</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                </thead>
+                                <tbody>
+                                <tr th:each="customer: ${customerList}">
+                                    <td th:text="${customer.id}"></td>
+                                    <td th:text="${customer.name}"></td>
+                                    <td th:text="${customer.email}"></td>
+                                    <td th:text="${customer.birthday}"></td>
+                                    <td th:text="${customer.phone}"></td>
+                                    <td th:text="${customer.typeCustomer.name}"></td>
+                                    <td th:text="${customer.province.name}"></td>
+                                    <td><a th:href="@{/customer/{id}/view(id=${customer.getId()})}"class="btn btn-primary">View</a></td>
+                                    <td><a th:href="@{/customer/{id}/edit(id=${customer.getId()})}" class="btn btn-default">Edit</a></td>
+                                    <td><a data-toggle="modal" data-target="#deleteModal" href="#"
+                                           th:data-id="${customer.id}"  class="btn btn-danger">Delete</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+            <th:block th:include="fragments/footer"></th:block>
+
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- End of Main Panel -->
+</div>
+
+<th:block th:include="fragments/scripts"></th:block>
+</body>
+</html>

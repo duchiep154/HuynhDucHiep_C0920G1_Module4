@@ -1,0 +1,42 @@
+<div class="sidebar" data-background-color="black" data-active-color="info">
+
+    <!--
+        Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+        Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+    -->
+
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a th:href="@{/customer}" class="simple-text">
+                Customer Manager
+            </a>
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a th:href="@{/customer}">
+                    <i class="ti-user"></i>
+                    <p>customer</p>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/customer/create}">
+                    <i class="ti-plus"></i>
+                    <p>Add Book</p>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/province}">
+                    <i class="ti-window"></i>
+                    <p>province</p>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/province/create}">
+                    <i class="ti-plus"></i>
+                    <p>Add province</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
