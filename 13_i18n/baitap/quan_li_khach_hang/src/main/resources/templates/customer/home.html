@@ -17,6 +17,17 @@
                         <div class="notify" style="color: red">
                             <div th:if="${message}"><span th:text="${message}"></span></div>
                         </div>
+                        <div class="header">
+                            <form th:action="@{/customer}">
+                                Filter: <input type="text" name="keyword"   id="keyword" size="25" th:value="*{keyword}" placeholder="you can search everything" />
+                                &nbsp;
+                                <input type="submit" value="Search" class="btn btn-dark" />
+                                &nbsp;
+                                <input type="button" value="Clear" id="btnClear" class="btn btn-danger" onclick="clearSearch()" />
+
+                            </form>
+
+                        </div>
                         <div class="content table-responsive table-full-width">
                             <table class="table table-striped">
                                 <thead>
@@ -26,7 +37,7 @@
                                 <th th:text="#{list.birthday}">Birthday</th>
                                 <th th:text="#{list.phone}">Phone</th>
                                 <th th:text="#{list.typeCustomer}">Type Customer</th>
-                                <th th:text="#{list.address}">Province</th>
+                                <th th:text="#{list.city}">Province</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -40,13 +51,39 @@
                                     <td th:text="${customer.phone}"></td>
                                     <td th:text="${customer.typeCustomer.name}"></td>
                                     <td th:text="${customer.province.name}"></td>
-                                    <td><a th:href="@{/customer/{id}/view(id=${customer.getId()})}"class="btn btn-primary">View</a></td>
+                                    <td><a th:href="@{/customer/{id}/view(id=${customer.getId()})}" class="btn btn-primary">View</a></td>
                                     <td><a th:href="@{/customer/{id}/edit(id=${customer.getId()})}" class="btn btn-default">Edit</a></td>
                                     <td><a data-toggle="modal" data-target="#deleteModal" href="#"
-                                           th:data-id="${customer.id}"  class="btn btn-danger">Delete</a></td>
+                                           th:data-id="${customer.id}" th:data-name="${customer.name}" id="delete" class="btn btn-danger"  >Delete</a></td>
                                 </tr>
                                 </tbody>
                             </table>
+                            <div th:if="${totalPages > 1}">
+                                Total Items: [[${totalItems}]]
+                                &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+
+                                <a th:if="${currentPage > 1}" th:href="@{'/customer' +'/page/1' + '?keyword='+ ${keyword}}">First</a>
+                                <span th:unless="${currentPage > 1}">First</span>
+                                &nbsp;&nbsp;
+
+                                <a th:if="${currentPage > 1}" th:href="@{'/customer' +'/page/' + ${currentPage - 1} + '?keyword='+ ${keyword}}">Previous</a>
+                                <span th:unless="${currentPage > 1}">Previous</span>
+
+                                &nbsp;&nbsp;
+
+                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a th:if="${currentPage != i}" th:href="@{'/customer' +'/page/' + ${i}  + '?keyword='+ ${keyword}}">[[${i}]]</a>
+			<span th:unless="${currentPage != i}">[[${i}]]</span>
+			&nbsp;
+		</span>
+
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/customer' +'/page/' + ${currentPage + 1} + '?keyword='+ ${keyword}}">Next</a>
+                                <span th:unless="${currentPage < totalPages}">Next</span>
+                                &nbsp;&nbsp;
+
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/customer' +'/page/' + ${totalPages} + '?keyword='+ ${keyword}}">Last</a>
+                                <span th:unless="${currentPage < totalPages}">Last</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +95,44 @@
     </div>
     <!-- End of Main Panel -->
 </div>
+<div id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/customer/delete" method="post">
+                <input type="hidden" name="deleteId" id="deleteId"/>
+                <div class="modal-header">
+                    <h4 class="modal-title" th:text="#{delete.title}">Delete Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-warning"><small style="color: blue" th:text="#{delete.notification}">This action cannot be
+                        undone.</small>
+                    </p>
+                    <input id="warning" style="color: red; width: 100%"/>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <th:block th:include="fragments/scripts"></th:block>
 </body>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/customer/?keyword=}]]";
+    }
+</script>
+<script>
+    $("#delete").click(function () {
+        $("#deleteModal input[id='deleteId']").val($(this).data("id"));
+        $("#deleteModal input[id='warning']").val(" ID : "
+            + $(this).data("id") + " name is : " + $(this).data("name") + "  ?");
+    });
+</script>
 </html>

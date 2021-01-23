@@ -52,27 +52,16 @@
                                     <div class="form-group">
                                         <label for="typeCustomer" style="color: black" th:text="#{list.typeCustomer}">Type Customer</label>
                                         <div class="input-group">
-                                            <select class="form-control" id="typeCustomer" th:field="*{typeCustomer}"  >
-                                                <th:block th:each="typeCustomer:${typeCustomerList}">
-                                                    <option th:value="${typeCustomer.id}"
-                                                            th:text="${typeCustomer.name}"></option>
-                                                </th:block>
-                                            </select>
+                                            <input type="text" class="form-control" id="typeCustomer" aria-describedby="typeCustomer" th:field="*{typeCustomer.name}" readonly/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="province" th:text="#{list.address}">Province</label>
                                         <div class="input-group">
-                                            <select class="form-control" id="province" th:field="*{province}" >
-                                                <th:block th:each="province:${provinceList}">
-                                                    <option th:value="${province.id}"
-                                                            th:text="${province.name}"></option>
-                                                </th:block>
-                                            </select>
+                                            <input type="text" class="form-control" id="province" aria-describedby="province" th:field="*{province.name}" readonly/>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" th:text="#{edit.button}" >Save</button>
-                                    <button type="reset" class="btn btn-danger">reset</button>
+                                    <a th:href="@{/customer}" class="btn btn-default">Back</a>
                                 </form>
                             </div>
                         </div>

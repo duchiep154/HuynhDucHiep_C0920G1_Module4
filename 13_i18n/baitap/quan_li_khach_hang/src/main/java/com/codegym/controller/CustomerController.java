@@ -5,6 +5,8 @@ import com.codegym.entity.Province;
 import com.codegym.entity.TypeCustomer;
 import com.codegym.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/customer")
@@ -21,14 +24,47 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+//
+//    @GetMapping()
+//    public String home(Model model) {
+//        model.addAttribute("customerList", customerService.findAll());
+//        return "customer/home";
+//
+//
+//    }
 
-    @GetMapping()
-    public String home(Model model) {
-        model.addAttribute("customerList", customerService.findAll());
-        return "customer/home";
+    @GetMapping
+    public String viewHomePage(Model model,@Param("keyword") String keyword) {
+        String keywordOld="";
+        if (keyword==null){
+            keyword="";
+        }
+        model.addAttribute("keyword",keyword);
+
+        return viewPage(model, 1,keyword);
 
 
     }
+
+
+    @RequestMapping("/page/{pageNum}")
+    public String viewPage(Model model,
+                           @PathVariable(name = "pageNum") int pageNum, @RequestParam(value = "") String keyword
+    ) {
+
+        Page<Customer> page =customerService.listAll(pageNum, Optional.ofNullable(keyword));
+
+
+        List<Customer> customerList = page.getContent();
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("customerList", customerList);
+        model.addAttribute("keyword", keyword);
+        return "customer/home";
+    }
+
 
     @GetMapping("/create")
     public String create(Model model) {
@@ -117,5 +153,15 @@ public class CustomerController {
         model.addAttribute("view", customerService.findById(id));
         return "customer/view";
     }
+
+
+    @PostMapping("/delete")
+    public String deleteProduct(@RequestParam String deleteId, RedirectAttributes redirectAttributes) {
+        this.customerService.remove(deleteId);
+        redirectAttributes.addFlashAttribute("message", "Delete  Complete !");
+        return "redirect:/customer";
+    }
+
+
 
 }
