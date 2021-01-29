@@ -18,6 +18,8 @@ public class Customer {
     private String id;
 
     @NotBlank(message = "vui lòng nhập họ tên nhé")
+    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,6}$",
+            message = " nhập họ tên vào bạn nhé viết hoa chữ cái đầu vào nha bạn ")
     private String name;
 
     @NotBlank(message = "vui lòng ko để trống nhé")
@@ -29,7 +31,7 @@ public class Customer {
 
     @NotBlank(message = "nhập số điện thoại bạn nhé")
     @Pattern(regexp = "^(090|091|\\(84\\)(\\+90|\\+91))(\\d{7})$",
-            message = "sai định dạng ! Format:  090xxxxxxx || 091xxxxxxx || (84)+90xxxxxxx || (84)+91xxxxxxx (x: 0-9)")
+            message = "sai định dạng !  090xxxxxxx || 091xxxxxxx || (84)+90xxxxxxx || (84)+91xxxxxxx (x: 0-9)")
     private String phone;
 //    ------------------------------------ Tạo Mối Quan Hệ ---------------------------------------------
     @ManyToOne

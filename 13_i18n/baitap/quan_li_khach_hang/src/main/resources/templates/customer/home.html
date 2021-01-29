@@ -15,15 +15,18 @@
                 <div class="row">
                     <div class="col-md-12 " >
                         <div class="notify" style="color: red">
-                            <div th:if="${message}"><span th:text="${message}"></span></div>
+                            <div th:if="${message}">
+                                <span th:text="${message}">
+                                    
+                                </span></div>
                         </div>
                         <div class="header">
                             <form th:action="@{/customer}">
                                 Filter: <input type="text" name="keyword"   id="keyword" size="25" th:value="*{keyword}" placeholder="you can search everything" />
                                 &nbsp;
-                                <input type="submit" value="Search" class="btn btn-dark" />
+                                <input type="submit"  th:value="#{list.search}" class="btn btn-dark" />
                                 &nbsp;
-                                <input type="button" value="Clear" id="btnClear" class="btn btn-danger" onclick="clearSearch()" />
+                                <input type="button"  th:value="#{list.clear}" id="btnClear" class="btn btn-danger" onclick="clearSearch()" />
 
                             </form>
 
@@ -51,10 +54,10 @@
                                     <td th:text="${customer.phone}"></td>
                                     <td th:text="${customer.typeCustomer.name}"></td>
                                     <td th:text="${customer.province.name}"></td>
-                                    <td><a th:href="@{/customer/{id}/view(id=${customer.getId()})}" class="btn btn-primary">View</a></td>
+                                    <td><a th:href="@{/customer/{id}/view(id=${customer.getId()})}" class="btn btn-primary" >View</a></td>
                                     <td><a th:href="@{/customer/{id}/edit(id=${customer.getId()})}" class="btn btn-default">Edit</a></td>
                                     <td><a data-toggle="modal" data-target="#deleteModal" href="#"
-                                           th:data-id="${customer.id}" th:data-name="${customer.name}" id="delete" class="btn btn-danger"  >Delete</a></td>
+                                           th:data-id="${customer.id}" th:data-name="${customer.name}" class="btn btn-danger delete"  >Delete</a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -121,6 +124,8 @@
     </div>
 </div>
 
+b4m
+
 <th:block th:include="fragments/scripts"></th:block>
 </body>
 <script type="text/javascript">
@@ -129,10 +134,13 @@
     }
 </script>
 <script>
-    $("#delete").click(function () {
+    $(".delete").click(
+        function () {
         $("#deleteModal input[id='deleteId']").val($(this).data("id"));
         $("#deleteModal input[id='warning']").val(" ID : "
             + $(this).data("id") + " name is : " + $(this).data("name") + "  ?");
-    });
+    }
+    );
 </script>
+
 </html>
