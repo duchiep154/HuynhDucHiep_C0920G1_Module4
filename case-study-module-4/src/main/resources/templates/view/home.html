@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="view/layout::bootstrap"></th:block>
+    <style th:replace="view/layout::style"></style>
+
+</head>
+<body>
+<div th:replace="view/layout::header"></div>
+
+<div class="content">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+        </ol>
+
+        <div class="carousel-caption" sec:authorize="isAuthenticated() == false">
+            <a href="sign-in" class="btn btn-outline-light bg-light"><span>Sign in</span></a>
+            <a href="sign-up" class="btn btn-primary"><span>Sign up</span></a>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/image/bg1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/image/bg1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/image/bg1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/image/bg-login.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+<!--        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">-->
+<!--            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--            <span class="visually-hidden"></span>-->
+<!--        </a>-->
+<!--        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">-->
+<!--            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--            <span class="visually-hidden"></span>-->
+<!--        </a>-->
+    </div>
+    <div class="jumbotron">
+        <div>
+            <p>Click here to make a reservation</p>
+        </div>
+        <div>
+            <a href="/service/list" class="btn btn-outline-light bg-light">Click here</a>
+        </div>
+    </div>
+    <div class="container-fluid ">
+        <div  class="text-center title-service">
+            <div>
+                <h1>Would you like to try something</h1>
+            </div>
+            <hr>
+            <div>
+                <p>Welcome my resort. We will bring you the best service of the world</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid select">
+        <div class="row text-center">
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <a href="/service/list?idServiceType=1" style="color: green"><i class="fab fa-react"></i></a>
+                <h3>VILLA</h3>
+                <p>Build the latest version of React</p>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <a href="/service/list?idServiceType=2" style="color: red"><i class="fab fa-react"></i></a>
+                <h3>HOUSE</h3>
+                <p>Build the latest version of React</p>
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <a href="/service/list?idServiceType=3" style="color: gold"><i class="fab fa-react"></i></a>
+                <h3>ROOM</h3>
+                <p>Build the latest version of React</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid padding">
+        <div class="row text-center padding">
+            <div class="col-12">
+                <h2>Contact us</h2>
+            </div>
+            <div class="col-12 social">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="view/layout::footer"></div>
+
+</body>
+</html>

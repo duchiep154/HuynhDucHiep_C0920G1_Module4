@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Info personal</title>
+
+    <th:block th:replace="view/layout::bootstrap"></th:block>
+    <style th:replace="view/layout::style"></style>
+
+    <style>
+        body {
+            background-image: url("/image/bg-login.jpg");
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="view/layout::header"></div>
+
+<div class="content">
+    <div class="container ">
+
+        <div class="col-lg-8 mx-lg-auto">
+            <!-- Default form contact -->
+            <form id="formContract" class="text-center border border-light p-5" action="/service/booking" th:object="${contract}" method="post">
+
+                <p class="h4 mb-4">Booking</p>
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{status}" value="false">
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-lg-4 col-form-label">ID Contract: </label>
+                        <input class="form-control col-lg-6" type="text" th:field="*{code}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-lg-4 col-form-label">Name Service: </label>
+                        <input class="form-control col-lg-6" type="text" th:field="*{service.name}" readonly>
+                        <input class="form-control col-lg-6" type="hidden" id="cost" th:field="*{service.cost}"
+                               readonly>
+                        <input class="form-control col-lg-6" type="hidden" id="idService" th:field="*{service.id}"
+                               readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-lg-4 col-form-label">Type Service: </label>
+                        <input class="form-control col-lg-6" type="text" th:field="*{service.serviceType.name}"
+                               readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-lg-4 col-form-label">Rent date : </label>
+                        <input class="form-control col-lg-6" type="date" id="startDate" th:field="*{startDate}"
+                               readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-lg-4 col-form-label">Pay Date : </label>
+                        <input class="form-control col-lg-6" type="date" id="endDate" th:field="*{endDate}" required>
+                    </div>
+                    <p th:errors="*{endDate}" class="text-center" style="color: red"></p>
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <div class="row">-->
+<!--                        <label class="col-lg-4 col-form-label">Deposit : </label>-->
+<!--                        <input class="form-control col-lg-6" type="text" th:field="*{deposit}" required>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <th:block th:each="attachService : ${attachServiceList}">
+                    <div class="form-group">
+                        <div class="row justify-content-center attachService">
+                            <label class="col-lg-2 col-form-label" th:text="${attachService.name}"></label>
+                            <button th:onclick="'minus('+${attachService.id}+')'" type="button" class="btn btn-outline-light add" style="width: 30px; height: 40px">-
+                            </button>
+                            <input  th:id="service+${attachService.id}" type="text" class="col-1 form-control checkNumber" value="0" readonly>
+                            <button th:onclick="'add('+${attachService.id}+')'" type="button" class="btn btn-outline-light minus" style="width: 30px; height: 40px">+
+                            </button>
+                        </div>
+                    </div>
+                </th:block>
+
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-lg-4 col-form-label">Total Money : </label>
+                        <input class="form-control col-lg-6" type="text" id="totalMoney"
+                               th:field="*{totalMoney}" readonly>
+                    </div>
+                </div>
+
+                <!-- Send button -->
+                <button class="btn btn-info btn-block" type="submit">Booking</button>
+
+            </form>
+
+            <!-- Default form contact -->
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="view/layout::footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#endDate').change(function () {
+            if ($('#endDate').val() !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8080/api-service/booking/" + $('#idService').val() + "/" + $('#startDate').val() + "/" + $('#endDate').val(),
+                    dataType: "JSON",
+                    success: function (result) {
+                        $('#totalMoney').attr("value", result);
+                        console.log(result)
+                    }
+                });
+
+
+                console.log("ok");
+            }
+        })
+
+        $('.checkNumber').keyup( function () {
+            console.log($(this).val());
+            if (isNaN($(this).val())) {
+                $(this).val(0)
+            } else {
+
+            }
+        })
+    });
+
+
+
+    function add(id) {
+        $('#service'+id).val(parseInt($('#service'+id).val()) + 1);
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api-service/booking/" + id + "/" + $('#service' + id).val(),
+            dataType: "JSON",
+            success: function (result) {
+                $('#totalMoney').attr("value", result);
+                console.log(result)
+            }
+        });
+
+
+        console.log("ok");
+
+    }
+
+    function minus(id) {
+        if (parseInt($('#service'+id).val()) > 0) {
+            $('#service'+id).val(parseInt($('#service'+id).val()) - 1)
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api-service/booking/" + id + "/" + $('#service' + id).val(),
+                dataType: "JSON",
+                success: function (result) {
+                    $('#totalMoney').attr("value", result);
+                    console.log(result)
+                }
+            });
+        }
+
+    }
+</script>
+</body>
+</html>

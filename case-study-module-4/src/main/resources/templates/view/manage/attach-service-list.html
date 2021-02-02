@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block th:replace="view/layout::bootstrap"></th:block>
+    <style th:replace="view/layout::style"></style>
+</head>
+<body>
+<div th:replace="view/layout::header"></div>
+
+<div class="content">
+    <div>
+        <table class="table table-striped table-dark text-center">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Amount</th>
+                <th>Add quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="attachService, state : ${attachServiceList}">
+                <td th:text="${attachService.id}"></td>
+                <td th:text="${attachService.name}"></td>
+                <td th:text="${attachService.cost}"></td>
+                <td th:id="${attachService.id}" th:text="${attachService.amount}"></td>
+                <td><a th:onclick="'onUpdate('+${attachService.id}+')'" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:replace="view/layout::footer"></div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <label for="" class="col-form-label col-5">Enter quantity: </label>
+                        <input id="amount" type="number" class="form-control col-5" name="amount">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="save" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+
+    function onUpdate(id) {
+
+
+
+        $('#save').click(function () {
+
+            $.ajax({
+                type : "GET",
+                url : "http://localhost:8080/api-attach-service/update/"+id+ "/"+ $('#amount').val(),
+                dataType : "JSON",
+                success : function (result) {
+
+                    $('#'+result.id).text(result.amount);
+                    // console.log($('#'+result.id));
+                    // console.logresult.amount();
+                    console.log("OK");
+                }
+            })
+        })
+
+    }
+</script>
+</body>
+</html>

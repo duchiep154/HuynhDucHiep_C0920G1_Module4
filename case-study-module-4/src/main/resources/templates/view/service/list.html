@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block th:replace="view/layout::bootstrap"></th:block>
+    <style th:replace="view/layout::style"></style>
+    <style>
+        .content {
+            padding: 20px;
+        }
+
+        .row {
+            padding: 15px;
+        }
+
+        .service a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .pagination a {
+            color: black;
+        }
+
+        .pagination a:hover {
+            background-color: #3b3b3b;
+            color: white;
+        }
+
+        .pagination .active a {
+            border: #3b3b3b;
+            background-color: #3b3b3b !important;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="view/layout::header"></div>
+
+<div class="content">
+    <div class="container">
+        <th:block th:each="service : ${serviceList}">
+            <div class="row service">
+                <div class="col-sm-12 col-lg-4">
+                    <a th:href="@{/service/detail/{id}(id=${service.id})}"><img
+                            th:src="@{/image/service/{image}(image =${service.image})}" width="100%" alt=""></a>
+                </div>
+                <div class="col-sm-12 col-lg-8">
+                    <a th:href="@{/service/detail/{id}(id=${service.id})}"><h1 th:text="${service.name}"></h1></a>
+                    <p th:text="${service.description}">Paradise Dai Lai Resort offers air-conditioned rooms with a
+                        flat-screen cable TV in the Ho Dai Lai area of Ngoc Quang village.</p>
+                </div>
+            </div>
+        </th:block>
+
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${serviceList.hasPrevious()}">
+                    <a class="page-link" th:href="@{/service/list(page=0,search=${search},idServiceType=${idServiceType})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${serviceList.hasPrevious()}">
+                    <a class="page-link" th:href="@{/service/list(page=${serviceList.number - 1},search=${search},idServiceType=${idServiceType})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&lsaquo;</span>
+                    </a>
+                </li>
+
+
+                <li class="page-item" th:if="${serviceList.hasPrevious()}">
+                    <a class="page-link" th:text="${serviceList.number}"
+                       th:href="@{/service/list(page=${serviceList.number - 1},search=${search},idServiceType=${idServiceType})}"></a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#" th:text="${serviceList.number +1}"></a>
+                </li>
+                <li class="page-item" th:if="${serviceList.hasNext()}">
+                    <a class="page-link" th:text="${serviceList.number +2}"
+                       th:href="@{/service/list(page=${serviceList.number + 1},search=${search},idServiceType=${idServiceType})}"></a>
+                </li>
+
+
+                <li class="page-item" th:if="${serviceList.hasNext()}">
+                    <a class="page-link" th:href="@{/service/list(page=${serviceList.number + 1}, search=${search},idServiceType=${idServiceType})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&rsaquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${serviceList.hasNext()}">
+                    <a class="page-link"
+                       th:href="@{/service/list(page=${serviceList.totalPages - 1}, search=${search},idServiceType=${idServiceType})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<div th:replace="view/layout::footer"></div>
+</body>
+</html>

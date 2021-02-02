@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+
+<body>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <th:block th:include="fragments/sidebar"></th:block>
+    <!-- Main Panel -->
+    <div class="main-panel">
+        <th:block th:include="fragments/navbar"></th:block>
+        <!-- Begin Page Content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 " >
+                        <div class="notify" style="color: red">
+                            <div th:if="${message}">
+                                <span th:text="${message}">
+                                    
+                                </span></div>
+                        </div>
+<!--                        <div class="header">-->
+<!--                            <form th:action="@{/customer}">-->
+<!--                                Filter: <input type="text" name="keyword"   id="keyword" size="25" th:value="*{keyword}" placeholder="you can search everything" />-->
+<!--                                &nbsp;-->
+<!--                                <input type="submit"  th:value="#{list.search}" class="btn btn-dark" />-->
+<!--                                &nbsp;-->
+<!--                                <input type="button"  th:value="#{list.clear}" id="btnClear" class="btn btn-danger" onclick="clearSearch()" />-->
+
+<!--                            </form>-->
+
+<!--                        </div>-->
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-striped">
+                                <thead>
+                                <th >ID</th>
+                                <th >title</th>
+                                <th >questiontype</th>
+                                <th >datecreate</th>
+                                <th >usercreate</th>
+                                <th >userfeedback</th>
+                                <th >status</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                </thead>
+                                <tbody>
+                                <tr th:each="question: ${questionList}">
+                                    <td th:text="${question.id}"></td>
+                                    <td th:text="${question.title}"></td>
+                                    <td th:text="${question.questionType.name}"></td>
+                                    <td th:text="${question.dateCreate}"></td>
+                                    <td th:text="${question.userCreate.username}"></td>
+                                    <td th:text="${question.userFeedback.userFeedback}"></td>
+                                    <td th:text="${question.status.name}"></td>
+                                    <td><a th:href="@{/question/{id}/view(id=${question.getId()})}" class="btn btn-primary" >View</a></td>
+                                    <td><a th:href="@{/question/{id}/edit(id=${question.getId()})}" class="btn btn-default">Edit</a></td>
+                                    <td><a data-toggle="modal" data-target="#deleteModal" href="#"
+                                           th:data-id="${question.id}" th:data-name="${question.title}" class="btn btn-danger delete"  >Delete</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+<!--                            <div th:if="${totalPages > 1}">-->
+<!--                                Total Items: [[${totalItems}]]-->
+<!--                                &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-->
+
+<!--                                <a th:if="${currentPage > 1}" th:href="@{'/customer' +'/page/1' + '?keyword='+ ${keyword}}">First</a>-->
+<!--                                <span th:unless="${currentPage > 1}">First</span>-->
+<!--                                &nbsp;&nbsp;-->
+
+<!--                                <a th:if="${currentPage > 1}" th:href="@{'/customer' +'/page/' + ${currentPage - 1} + '?keyword='+ ${keyword}}">Previous</a>-->
+<!--                                <span th:unless="${currentPage > 1}">Previous</span>-->
+
+<!--                                &nbsp;&nbsp;-->
+
+<!--                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">-->
+<!--			<a th:if="${currentPage != i}" th:href="@{'/customer' +'/page/' + ${i}  + '?keyword='+ ${keyword}}">[[${i}]]</a>-->
+<!--			<span th:unless="${currentPage != i}">[[${i}]]</span>-->
+<!--			&nbsp;-->
+<!--		</span>-->
+
+<!--                                <a th:if="${currentPage < totalPages}" th:href="@{'/customer' +'/page/' + ${currentPage + 1} + '?keyword='+ ${keyword}}">Next</a>-->
+<!--                                <span th:unless="${currentPage < totalPages}">Next</span>-->
+<!--                                &nbsp;&nbsp;-->
+
+<!--                                <a th:if="${currentPage < totalPages}" th:href="@{'/customer' +'/page/' + ${totalPages} + '?keyword='+ ${keyword}}">Last</a>-->
+<!--                                <span th:unless="${currentPage < totalPages}">Last</span>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+            <th:block th:include="fragments/footer"></th:block>
+
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- End of Main Panel -->
+</div>
+<div id="deleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/customer/delete" method="post">
+                <input type="hidden" name="deleteId" id="deleteId"/>
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Customer</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-warning"><small style="color: blue" >This action cannot be
+                        undone.</small>
+                    </p>
+                    <input id="warning" style="color: red; width: 100%"/>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+b4m
+
+<th:block th:include="fragments/scripts"></th:block>
+</body>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/customer/?keyword=}]]";
+    }
+</script>
+<script>
+    $(".delete").click(
+        function () {
+        $("#deleteModal input[id='deleteId']").val($(this).data("id"));
+        $("#deleteModal input[id='warning']").val(" ID : "
+            + $(this).data("id") + " name is : " + $(this).data("title") + "  ?");
+    }
+    );
+</script>
+
+</html>

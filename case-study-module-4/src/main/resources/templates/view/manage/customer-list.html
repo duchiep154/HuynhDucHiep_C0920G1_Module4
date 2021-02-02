@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block th:replace="view/layout::bootstrap"></th:block>
+    <style th:replace="view/layout::style"></style>
+
+    <style>
+        .pagination a {
+            color: black;
+        }
+
+        .pagination a:hover {
+            background-color: #3b3b3b;
+            color: white;
+        }
+
+        .pagination .active a {
+            border: #3b3b3b;
+            background-color: #3b3b3b !important;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="view/layout::header"></div>
+
+<div class="content">
+
+    <div>
+        <div class="form-inline justify-content-center mt-3 mb-3">
+            <form action="/manage/customer/list">
+                <input type="text" class="form-control" name="nameCustomer" placeholder="Enter name customer">
+                <button type="submit" class="btn btn-outline-success">Search</button>
+            </form>
+            <a id="select">
+            <select class="form-control ml-5" id="selectCustomerType">
+                <option value="">Customer type</option>
+                <option value="">All</option>
+                <option th:each="customerType : ${customerTypeList}" th:value="${customerType.id}" th:text="${customerType.name}"></option>
+            </select>
+            </a>
+        </div>
+        <table class="table table-striped table-dark text-center">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date of birth</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Id card</th>
+                <th>Customer type</th>
+                <th>Use user</th>
+                <th  sec:authorize="hasRole('MANAGE')">Update</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer, state : ${customerList}">
+                <td th:text="${state.count}"></td>
+                <td th:text="${customer.code}"></td>
+                <td th:text="${customer.name}"></td>
+                <td th:text="${customer.dateOfBirth}"></td>
+                <th:block th:switch="${customer.gender}">
+                    <td th:case="true">Male</td>
+                    <td th:case="false">Female</td>
+                    <td th:case="*">Other</td>
+                </th:block>
+                <td th:text="${customer.address}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.phone}"></td>
+                <td th:text="${customer.idCard}"></td>
+                <td th:text="${customer.customerType.name}"></td>
+                <td th:text="${customer.user.username}"></td>
+                <td sec:authorize="hasRole('MANAGE')"><a th:onclick="'onUpdate('+${customer.id}+')'" class="btn btn-outline-primary"
+                       data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-edit"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${customerList.hasPrevious()}">
+                    <a class="page-link" th:href="@{/manage/customer/list(page=0,nameCustomer=${nameCustomer},idCustomerType=${idCustomerType})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${customerList.hasPrevious()}">
+                    <a class="page-link" th:href="@{/manage/customer/list(page=${customerList.number - 1},nameCustomer=${nameCustomer},idCustomerType=${idCustomerType})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&lsaquo;</span>
+                    </a>
+                </li>
+
+
+                <li class="page-item" th:if="${customerList.hasPrevious()}">
+                    <a class="page-link" th:text="${customerList.number}"
+                       th:href="@{/manage/customer/list(page=${customerList.number - 1},nameCustomer=${nameCustomer},idCustomerType=${idCustomerType})}"></a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#" th:text="${customerList.number +1}"></a>
+                </li>
+                <li class="page-item" th:if="${customerList.hasNext()}">
+                    <a class="page-link" th:text="${customerList.number +2}"
+                       th:href="@{/manage/customer/list(page=${customerList.number + 1},nameCustomer=${nameCustomer},idCustomerType=${idCustomerType})}"></a>
+                </li>
+
+
+                <li class="page-item" th:if="${customerList.hasNext()}">
+                    <a class="page-link" th:href="@{/manage/customer/list(page=${customerList.number + 1},nameCustomer=${nameCustomer},idCustomerType=${idCustomerType})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&rsaquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${customerList.hasNext()}">
+                    <a class="page-link" th:href="@{/manage/customer/list(page=${customerList.totalPages - 1},nameCustomer=${nameCustomer},idCustomerType=${idCustomerType})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div th:replace="view/layout::footer"></div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <form action="/manage/customer/update" method="post">
+                <input type="hidden" id="idCustomer" name="idCustomer">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="" class="col-form-label col-5">Customer type</label>
+                            <select class="form-control col-5" name="idCustomerType" id="">
+                                <option th:each="customerType : ${customerTypeList}" th:value="${customerType.id}"
+                                        th:text="${customerType.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+
+    function onUpdate(id) {
+        $('#idCustomer').val(id);
+    }
+
+    $(document).ready(function () {
+        $('#selectCustomerType').change(function () {
+            $('#select').attr('href', '/manage/customer/list?idCustomerType='+$(this).val());
+        })
+    })
+</script>
+</body>
+</html>

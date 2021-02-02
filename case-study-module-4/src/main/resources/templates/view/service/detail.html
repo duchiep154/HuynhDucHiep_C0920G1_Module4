@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Service</title>
+
+    <th:block th:replace="view/layout::bootstrap"></th:block>
+    <style th:replace="view/layout::style"></style>
+
+    <style>
+        .content a {
+            font-size: 30px !important;
+        }
+
+        .infoDetail th {
+            background-color: #545b62;
+            width: 200px;
+            color: white;
+        }
+
+        .content {
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:replace="view/layout::header"></div>
+
+<div class="content">
+    <div class="container">
+        <div class="row title">
+            <div class="col-sm-12 col-md-6">
+                <img th:src="@{/image/service/{image}(image =${service.image})}" alt="" width="100%">
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <p>Service type: <span th:text="${service.serviceType.name}"></span></p>
+                <h1 th:text="${service.name}"></h1>
+                <h3 th:text="${service.standardRoom}"></h3>
+                <label class="font-weight-bold" style="font-size: 35px" th:text="${service.cost}"></label><span>$</span>
+                <s class="ml-3" th:text="${service.cost}"></s>
+                <br>
+                <th:block>
+                    <a th:if="${!service.status}" th:href="@{/service/booking/{idService}(idService=${service.id})}"
+                       class="btn btn-outline-success">Booking</a>
+                    <p  th:if="${service.status}" style="font-size: 35px; color: red">Booked</p>
+                </th:block>
+            </div>
+        </div>
+        <div class="infoDetail">
+            <div class="detail">
+                <table class="table">
+                    <tr>
+                        <th colspan="4"><h2>Info Detail</h2></th>
+                    </tr>
+                    <tr>
+                        <th>Service type:</th>
+                        <td th:text="${service.serviceType.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Area:</th>
+                        <td th:text="${service.area}"></td>
+                    </tr>
+                    <tr>
+                        <th>Standard room:</th>
+                        <td th:text="${service.standardRoom}"></td>
+                    </tr>
+                    <tr>
+                        <th>Max people:</th>
+                        <td th:text="${service.maxPeople}"></td>
+                    </tr>
+                    <tr>
+                        <th>Rent type:</th>
+                        <td th:text="${service.rentType.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Pool area:</th>
+                        <td th:text="${service.poolArea}"></td>
+                    </tr>
+                    <tr>
+                        <th>Number of floor:</th>
+                        <td th:text="${service.numberOfFloor}"></td>
+                    </tr>
+                    <tr>
+                        <th>Poster:</th>
+                        <td th:if="${service.user.employee}" th:text="${service.user.employee.name}"></td>
+                        <td th:unless="${service.user.employee}" th:text="${service.user.customer.name}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="description">
+            <h2>Description</h2>
+            <p th:text="${service.description}"></p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="view/layout::footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
